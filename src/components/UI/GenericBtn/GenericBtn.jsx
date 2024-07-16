@@ -4,13 +4,15 @@ import classNames from 'classnames';
 import css from './GenericBtn.module.css';
 
 const GenericBtn = ({
-  children,  
+  children,
+  disabled,
+  active,
   customStyles = {},
   ...props
 }) => {
   return (
     <button
-      className={classNames(css.btn, customStyles.btn)}
+      className={classNames(css.btn, { [css.btn_disabled]: disabled }, customStyles.btn, )}
       {...props}
     >
       {children}

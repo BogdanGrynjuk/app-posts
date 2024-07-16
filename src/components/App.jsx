@@ -1,8 +1,7 @@
 import { useState } from "react";
-import PostItem from "./PostItem";
-import GenericList from "./GenericList";
-import GenericBtn from "./UI/GenericBtn";
-import GenericInput from "./UI/GenericInput";
+import GenericBtn from "./ui/GenericBtn";
+import GenericInput from "./ui/GenericInput";
+import PostList from "./posts/PostList/PostList";
 
 export const App = () => {
 
@@ -10,20 +9,20 @@ export const App = () => {
     { id: 1, title: "Javascript", body: "Javascript - мова програмування" },
     { id: 2, title: "Javascript 2", body: "Javascript - мова програмування" },
     { id: 3, title: "Javascript 3", body: "Javascript - мова програмування" },
-    { id: 4, title: "Javascript 4", body: "Javascript - мова програмування" },
-    { id: 5, title: "Javascript 5", body: "Javascript - мова програмування" },
-    { id: 6, title: "Javascript 6", body: "Javascript - мова програмування" },
-    { id: 7, title: "Javascript 7", body: "Javascript - мова програмування" },
-    { id: 8, title: "Javascript 8", body: "Javascript - мова програмування" },
-    { id: 9, title: "Javascript 9", body: "Javascript - мова програмування" },
+    
   ]);
+  const [post, setPost] = useState({title: "", body: ""});
+  
+
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setPost(prevState => ({...prevState, [name]: value}))
+  }
 
   const handleSubmit = e => {
-    e.preventDefault();
-    const form = e.target;
-    const postTitle = form.elements.title.value;
-    const postDescriprion = form.elements.descriprion.value;
-    setPosts([...posts, {title: postTitle, body: postDescriprion, id: Date.now()}]);
+    e.preventDefault();   
+    setPosts([...posts, { ...post , id: Date.now() }]);
+    setPost({title: "", body: ""})
   }
   return (
     <div style={{ width: '800px' }}>
@@ -31,28 +30,30 @@ export const App = () => {
         <GenericInput
           type="text"
           name="title"
+          value={post.title}
           placeholder="Введіть назву поста"
           label="Назва поста"
+          onChange={handleChangeInput}
         />
         <GenericInput
           type="text"
-          name="descriprion"
-          placeholder="Введіть опис поста"         
+          name="body"
+          value={post.body}
+          placeholder="Введіть опис поста" 
+          label="Опис поста"
+          onChange={handleChangeInput}
         />
         <GenericBtn          
-          type="submit">
+          type="submit"
+          disabled ={!(post.title && post.body)}
+        >
           Додати новий пост
         </GenericBtn>
       </form>
-      <GenericList
-        items={posts}
-        renderItem={post => <PostItem post={post} />}
-        keyExtractor={post => `post-${post.id}`}
-        listName="Список постів"
-        className="generic-list"
-      />
+      <PostList posts={posts} />
       
      
     </div>
   );
 };
+      

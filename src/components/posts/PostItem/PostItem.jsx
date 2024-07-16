@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 
 import css from './PostItem.module.css'
 
-const PostItem = ({post}) => {
+const PostItem = ({post, number}) => {
  
   return (
     <div className={css.post}>
       <div className={css.post__content}>
-        <strong>{post.id}. { post.title }</strong>
+        <strong>{ number} . { post.title }</strong>
         <p>{post.body}</p>
       </div>
       <div className={css.post__btns}>

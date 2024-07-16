@@ -1,9 +1,35 @@
 .btn {
-  padding: 5px 15px;
+  padding: 4px 16px;
   border: 1px solid teal;
   border-radius: 4px;
   font-size: 14px;;
   color: teal;
   background: transparent;
   cursor: pointer;
+
+  &:hover {
+    color: white;
+    background: teal;
+    border-color: teal;
+  }
+}
+
+.btn_disabled {
+  color: grey;
+  border-color: grey;
+  background: #f0f0f0;
+  cursor: not-allowed;
+  opacity: 0.6;
+
+  &:hover {
+    color: grey;
+    border-color: grey;
+    background: #f0f0f0;
+  }
+}
+
+.btn_active {
+  color: white;
+  background: teal;
+  border-color: teal;
 }

@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GenericList = ({ items, renderItem, keyExtractor, listName, className }) => {
+const GenericList = ({
+  items,
+  renderItem,
+  keyExtractor,
+  listName,
+  className
+}) => {
   return (
     <div className={className}>
       {listName && <h2>{listName}</h2>}

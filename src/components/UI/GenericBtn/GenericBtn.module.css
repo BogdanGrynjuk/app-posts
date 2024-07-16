@@ -1,0 +1,9 @@
+.btn {
+  padding: 5px 15px;
+  border: 1px solid teal;
+  border-radius: 4px;
+  font-size: 14px;;
+  color: teal;
+  background: transparent;
+  cursor: pointer;
+}

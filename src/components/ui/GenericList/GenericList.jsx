@@ -9,7 +9,8 @@ const GenericList = ({
   keyExtractor,
   listName,
   customStyles = {},
-}) => {
+}) => {  
+
   return (
     <div className={classNames(css.wrapper, customStyles.wrapper)}>
       {listName &&

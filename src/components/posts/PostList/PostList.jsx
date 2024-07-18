@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GenericList from 'components/ui/GenericList';
 import PostItem from '../PostItem';
+import css from './PostList.module.css';
 
 const PostList = ({ posts, deletePost }) => {
   return (
@@ -9,7 +10,8 @@ const PostList = ({ posts, deletePost }) => {
       items={posts}
       renderItem={(post, index) => <PostItem post={post} number={index + 1} deletePost={deletePost}/>}
       keyExtractor={(post) => `post-${post.id}`}
-      listName="Список постів"      
+      listName="Список постів"
+      customStyles={css}
     />
   );
 };

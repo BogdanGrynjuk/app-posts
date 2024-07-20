@@ -4,16 +4,14 @@ import classNames from 'classnames';
 import css from './GenericInput.module.css';
 
 const GenericInput = ({ label, customStyles = {}, ...props }) => {
-  return (
-    <div className={classNames(css.wrapper, customStyles.wrapper)}>
-      <label className={classNames(css.label, customStyles.label)}>
-        {label}
-        <input
-          className={classNames(css.input, customStyles.input)}
-          {...props}
-        />
-      </label>
-    </div>
+  return (    
+    <label className={classNames(css.label, customStyles.label)}>
+      {label}
+      <input
+        className={classNames(css.input, customStyles.input)}
+        {...props}
+      />
+    </label>    
   );
 }
 
@@ -28,3 +26,4 @@ GenericInput.propTypes = {
 };
 
 export default GenericInput;
+

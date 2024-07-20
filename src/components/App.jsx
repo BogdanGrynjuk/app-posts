@@ -1,8 +1,8 @@
-import { useState } from "react";
+import React, { useMemo, useState } from "react";
 import PostForm from "./posts/PostForm";
 import PostList from "./posts/PostList";
 import EmptyPostListMessage from "./posts/EmptyPostListMessage";
-import PostSelect from "./posts/PostSelect";
+import PostFilter from "./posts/PostFilter";
 
 
 export const App = () => {
@@ -13,12 +13,21 @@ export const App = () => {
     { id: "3", title: "Html", body: "Html - мова розмітки гіпертексту" },
     
   ]);
+  const [filterPost, setFilterPost] = useState({
+    sort: '',
+    query: ''
+  });
+    
+  const sortedPosts = useMemo(() => {
+    return filterPost.sort
+      ? [...posts].sort((a, b) => a[filterPost.sort].localeCompare(b[filterPost.sort]))
+      : posts;
+  }, [filterPost.sort, posts]);
 
-  const [selectedSort, setSelectedSort] = useState('');
+  const sortedAndSearchedPosts = useMemo(() => {
+    return sortedPosts.filter(post => post.title.toLowerCase().includes(filterPost.query.toLowerCase()));
+  }, [filterPost.query, sortedPosts]);
 
-
-
-  
   
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -29,16 +38,26 @@ export const App = () => {
   };
 
   const sortPost = (sort) => {
-    setSelectedSort(sort);
-    setPosts([...posts].sort((a, b) => a[sort].localeCompare(b[sort])));
-  }
+    setFilterPost({...filterPost, sort});
+  };
+
+  const searchPostByTitle = (e) => {
+    setFilterPost({ ...filterPost, query: e.target.value });
+  };
   
   return (
     <div style={{ width: '800px' }}>
+     
       <PostForm createPost={createPost} />
-      <PostSelect selectedSort={selectedSort} sortPost={sortPost}/>
-      {posts.length
-        ? <PostList posts={posts} deletePost={deletePost} />
+
+      <PostFilter
+        filter={filterPost}
+        sortPost={sortPost}
+        searchPostByTitle={searchPostByTitle}
+      />
+      
+      {sortedAndSearchedPosts.length
+        ? <PostList posts={sortedAndSearchedPosts} deletePost={deletePost} />
         : <EmptyPostListMessage />
       }
     </div>

@@ -1,0 +1,10 @@
+.label {
+  display: flex;
+  flex-direction: row;
+  column-gap: 8px;
+  align-items: center;
+}
+
+.input {
+  width: auto;  
+}

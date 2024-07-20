@@ -1,22 +1,18 @@
-.wrapper {
+.label {
   display: flex;
   flex-direction: column;
-  grid-row: 8px;
-}
-
-.label {  
+  gap: 8px;
   font-weight: bold;
 }
 
 .input {
-  width: 100%;  
+  width: 100%;
   padding: 4px 16px;
   border: 1px solid teal;
   border-radius: 4px;
+}
 
-  &::placeholder {
-    font-size: 14px;
-    font-weight: normal;
-  }
-};
-
+.input::placeholder {
+  font-size: 14px;
+  font-weight: normal;
+}

@@ -56,10 +56,8 @@ export const App = () => {
         searchPostByTitle={searchPostByTitle}
       />
       
-      {sortedAndSearchedPosts.length
-        ? <PostList posts={sortedAndSearchedPosts} deletePost={deletePost} />
-        : <EmptyPostListMessage />
-      }
+      <PostList posts={sortedAndSearchedPosts} deletePost={deletePost} />
+      
     </div>
   );
 };

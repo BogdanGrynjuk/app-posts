@@ -3,8 +3,13 @@ import PropTypes from 'prop-types';
 import GenericList from 'components/ui/GenericList';
 import PostItem from '../PostItem';
 import css from './PostList.module.css';
+import EmptyPostListMessage from '../EmptyPostListMessage';
 
 const PostList = ({ posts, deletePost }) => {
+  if (!posts.length) {
+    return <EmptyPostListMessage />
+    
+  }
   return (
     <GenericList
       items={posts}

@@ -6,7 +6,7 @@ import GenericBtn from 'components/ui/GenericBtn';
 
 import css from './PostForm.module.css';
 
-const PostForm = ({ createPost }) => {
+const PostForm = ({ createPost, closeModal }) => {
   const [post, setPost] = useState({ title: "", body: "" });
   
   const handleChangeInput = (e) => {
@@ -19,6 +19,7 @@ const PostForm = ({ createPost }) => {
     const newPost = { ...post, id: nanoid() };
     createPost(newPost);
     setPost({ title: "", body: "" });
+    closeModal();
   };
   
 

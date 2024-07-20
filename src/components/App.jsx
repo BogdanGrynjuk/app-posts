@@ -1,11 +1,15 @@
 import React, { useMemo, useState } from "react";
 import PostForm from "./posts/PostForm";
 import PostList from "./posts/PostList";
-import EmptyPostListMessage from "./posts/EmptyPostListMessage";
 import PostFilter from "./posts/PostFilter";
-
+import GenericModal from "./ui/GenericModal";
+import GenericBtn from "./ui/GenericBtn";
 
 export const App = () => {
+  const modalRoot = document.querySelector("#modal-add-new-post-root");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
 
   const [posts, setPosts] = useState([
     { id: "1", title: "Css", body: "Css - каскадна таблиця стилів" },
@@ -13,6 +17,7 @@ export const App = () => {
     { id: "3", title: "Html", body: "Html - мова розмітки гіпертексту" },
     
   ]);
+
   const [filterPost, setFilterPost] = useState({
     sort: '',
     query: ''
@@ -47,8 +52,20 @@ export const App = () => {
   
   return (
     <div style={{ width: '800px' }}>
-     
-      <PostForm createPost={createPost} />
+
+      {isModalOpen &&
+        <GenericModal
+          modalRoot={modalRoot}
+          closeModal={toggleModal}
+        >
+          <PostForm
+            createPost={createPost}
+            closeModal={toggleModal}
+          />
+        </GenericModal>
+      }
+      
+      <GenericBtn onClick={toggleModal}>Додати новий пост</GenericBtn>
 
       <PostFilter
         filter={filterPost}
@@ -57,7 +74,6 @@ export const App = () => {
       />
       
       <PostList posts={sortedAndSearchedPosts} deletePost={deletePost} />
-      
     </div>
   );
 };

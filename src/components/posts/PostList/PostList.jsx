@@ -7,9 +7,9 @@ import EmptyPostListMessage from '../EmptyPostListMessage';
 
 const PostList = ({ posts, deletePost }) => {
   if (!posts.length) {
-    return <EmptyPostListMessage />
-    
+    return <EmptyPostListMessage />    
   }
+  
   return (
     <GenericList
       items={posts}

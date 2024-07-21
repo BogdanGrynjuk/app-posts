@@ -7,7 +7,7 @@ import GenericBtn from 'components/ui/GenericBtn';
 import customStylesForBtnCloseModal from './CustomStylesForBtn.module.css' 
 
 
-const ModalAddnewPost = ({closeModal, createPost}) => {
+const ModalAddnewPost = ({closeModal, createPost, existingPosts}) => {
   const [modalRoot, setModalRoot] = useState(null);
 
   useEffect(() => setModalRoot(MODAL_ADD_NEW_POST_ROOT), []);
@@ -28,6 +28,7 @@ const ModalAddnewPost = ({closeModal, createPost}) => {
           <PostForm
             createPost={createPost}
             closeModal={closeModal}
+            existingPosts={existingPosts}
           />
 
         </GenericModal >

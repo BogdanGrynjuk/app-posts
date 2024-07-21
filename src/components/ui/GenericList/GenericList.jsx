@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import css from './GenericList.module.css';
@@ -10,7 +10,8 @@ const GenericList = ({
   keyExtractor,
   listName,
   customStyles = {},
-}) => {  
+}) => {
+  const nodeRefs = useRef([]);
 
   return (
     <div className={classNames(css.wrapper, customStyles.wrapper)}>
@@ -26,17 +27,17 @@ const GenericList = ({
               key={keyExtractor(item)}
               timeout={500}
               classNames="item"
+              nodeRef={nodeRefs.current[index] = React.createRef()}
             >
-          <li
-            className={classNames(css.list_item, customStyles.list_item)}            
-          >
-            {renderItem(item, index)}
+              <li
+                ref={nodeRefs.current[index]}
+                className={classNames(css.list_item, customStyles.list_item)}
+              >
+                {renderItem(item, index)}
               </li>
-              </CSSTransition>
-        ))}
-
+            </CSSTransition>
+          ))}
         </TransitionGroup>
-        
       </ul>
     </div>
   );

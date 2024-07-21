@@ -23,7 +23,7 @@ const PostItem = ({ post, number, deletePost }) => {
 
 PostItem.propTypes = {
   post: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
   }).isRequired,

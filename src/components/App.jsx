@@ -1,28 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PostList from "./posts/PostList";
 import PostFilter from "./posts/PostFilter";
 import ModalAddnewPost from "./posts/ModalAddNewPost";
 import ControlPanel from "./posts/ControlPanel";
-import { useSortedAndSearchedPosts } from "./hooks/usePosts";
+import { useSortedAndSearchedPosts } from "./hooks";
+import { PostService } from "API/PostService";
 
 export const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [filterPost, setFilterPost] = useState({ sort: '', query: '' });
+  
+  const sortedAndSearchedPosts = useSortedAndSearchedPosts(posts, filterPost.sort, filterPost.query)
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-  const [posts, setPosts] = useState([
-    { id: "1", title: "Css", body: "Css - каскадна таблиця стилів" },
-    { id: "2", title: "Javascript", body: "Javascript - мова програмування" },
-    { id: "3", title: "Html", body: "Html - мова розмітки гіпертексту" },
+  const fetchPosts = async () => {
     
-  ]);
+      const posts = await PostService.getAllPosts();
+      setPosts(posts);
+    
+  };
 
-  const [filterPost, setFilterPost] = useState({
-    sort: '',
-    query: ''
-  });
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
-  const sortedAndSearchedPosts = useSortedAndSearchedPosts(posts, filterPost.sort, filterPost.query)
 
   
   const createPost = (newPost) => {
@@ -46,12 +49,13 @@ export const App = () => {
   }
   
   return (
-    <div style={{ width: '800px' }}>
+    <div style={{ width: '800px', overflow: "hidden" }}>
 
       {isModalOpen &&
         <ModalAddnewPost
           closeModal={toggleModal}
           createPost={createPost}
+          existingPosts={posts}
         />
       }
 

@@ -24,7 +24,8 @@ const PostList = ({ posts, deletePost }) => {
 PostList.propTypes = {
    posts: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      userId: PropTypes.number,
+      id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
       body: PropTypes.string.isRequired,
     })

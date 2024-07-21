@@ -1,7 +1,6 @@
 .wrapper {
   display: flex;
-  justify-content: space-between;
-  margin-top: 8px;
+  justify-content: space-between; 
   padding-top: 8px;
-  border-top: 1px solid #999;
+  
 }

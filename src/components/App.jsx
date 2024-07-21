@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from "react";
 import PostList from "./posts/PostList";
 import PostFilter from "./posts/PostFilter";
-import GenericBtn from "./ui/GenericBtn";
 import ModalAddnewPost from "./posts/ModalAddNewPost";
+import ControlPanel from "./posts/ControlPanel";
 
 export const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,6 +47,10 @@ export const App = () => {
   const searchPostByTitle = (e) => {
     setFilterPost({ ...filterPost, query: e.target.value });
   };
+
+  const clearFilterPost = () => {
+    setFilterPost({ ...filterPost, sort: "", query: "" });
+  }
   
   return (
     <div style={{ width: '800px' }}>
@@ -57,8 +61,6 @@ export const App = () => {
           createPost={createPost}
         />
       }
-      
-      <GenericBtn onClick={toggleModal}>Додати новий пост</GenericBtn>
 
       <PostFilter
         filter={filterPost}
@@ -66,7 +68,14 @@ export const App = () => {
         searchPostByTitle={searchPostByTitle}
       />
       
-      <PostList posts={sortedAndSearchedPosts} deletePost={deletePost} />
+      <ControlPanel
+        openModal={toggleModal}
+        clearFilter={clearFilterPost}
+      />
+      <PostList
+        posts={sortedAndSearchedPosts}
+        deletePost={deletePost}
+      />
     </div>
   );
 };

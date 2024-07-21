@@ -1,12 +1,10 @@
 import React, { useMemo, useState } from "react";
-import PostForm from "./posts/PostForm";
 import PostList from "./posts/PostList";
 import PostFilter from "./posts/PostFilter";
-import GenericModal from "./ui/GenericModal";
 import GenericBtn from "./ui/GenericBtn";
+import ModalAddnewPost from "./posts/ModalAddNewPost";
 
 export const App = () => {
-  const modalRoot = document.querySelector("#modal-add-new-post-root");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
@@ -54,15 +52,10 @@ export const App = () => {
     <div style={{ width: '800px' }}>
 
       {isModalOpen &&
-        <GenericModal
-          modalRoot={modalRoot}
+        <ModalAddnewPost
           closeModal={toggleModal}
-        >
-          <PostForm
-            createPost={createPost}
-            closeModal={toggleModal}
-          />
-        </GenericModal>
+          createPost={createPost}
+        />
       }
       
       <GenericBtn onClick={toggleModal}>Додати новий пост</GenericBtn>

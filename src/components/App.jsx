@@ -3,6 +3,7 @@ import PostList from "./posts/PostList";
 import PostFilter from "./posts/PostFilter";
 import ModalAddnewPost from "./posts/ModalAddNewPost";
 import ControlPanel from "./posts/ControlPanel";
+import { useSortedAndSearchedPosts } from "./hooks/usePosts";
 
 export const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,16 +21,8 @@ export const App = () => {
     sort: '',
     query: ''
   });
-    
-  const sortedPosts = useMemo(() => {
-    return filterPost.sort
-      ? [...posts].sort((a, b) => a[filterPost.sort].localeCompare(b[filterPost.sort]))
-      : posts;
-  }, [filterPost.sort, posts]);
 
-  const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter(post => post.title.toLowerCase().includes(filterPost.query.toLowerCase()));
-  }, [filterPost.query, sortedPosts]);
+  const sortedAndSearchedPosts = useSortedAndSearchedPosts(posts, filterPost.sort, filterPost.query)
 
   
   const createPost = (newPost) => {

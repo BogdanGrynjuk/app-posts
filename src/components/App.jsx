@@ -1,33 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PostList from "./posts/PostList";
 import PostFilter from "./posts/PostFilter";
 import ModalAddnewPost from "./posts/ModalAddNewPost";
 import ControlPanel from "./posts/ControlPanel";
-import { useSortedAndSearchedPosts } from "./hooks";
+import { useFetching, useSortedAndSearchedPosts } from "../hooks";
 import { PostService } from "API/PostService";
+import GenericLoader from "./ui/GenericLoader";
+import { LOADER } from "static/modalRoots";
+import GenericInfoMessage from "./ui/GenericInfoMessage";
 
 export const App = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [posts, setPosts] = useState([]);
   const [filterPost, setFilterPost] = useState({ sort: '', query: '' });
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
-  const sortedAndSearchedPosts = useSortedAndSearchedPosts(posts, filterPost.sort, filterPost.query)
-
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
-
-  const fetchPosts = async () => {
-    
-      const posts = await PostService.getAllPosts();
-      setPosts(posts);
-    
-  };
+  const fetchingPosts = useCallback(async () => {
+    const posts = await PostService.getAllPosts();
+    setPosts(posts);
+  }, []);
+  
+  const [fetchPosts, isLoadingPosts, postError] = useFetching(fetchingPosts);
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [fetchPosts]);
 
+  const sortedAndSearchedPosts = useSortedAndSearchedPosts(posts, filterPost.sort, filterPost.query)
 
-  
+  const toggleModal = () => setIsModalOpen(!isModalOpen); 
+
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
   };
@@ -69,11 +70,22 @@ export const App = () => {
         openModal={toggleModal}
         clearFilter={clearFilterPost}
       />
-      <PostList
-        posts={sortedAndSearchedPosts}
-        deletePost={deletePost}
-      />
+      {postError
+        &&
+        <GenericInfoMessage
+          message={`Під час завантаження сталася помилка. ${postError}`}
+        />
+        
+      }
+      {isLoadingPosts
+        ?
+        <GenericLoader modalRoot={LOADER} text={"Loading posts..."} />
+        :
+        <PostList
+          posts={sortedAndSearchedPosts}
+          deletePost={deletePost}
+        />
+      }
     </div>
   );
 };
-      

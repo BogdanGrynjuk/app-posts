@@ -6,7 +6,7 @@ import GenericBtn from 'components/ui/GenericBtn';
 import css from './PostForm.module.css';
 
 const PostForm = ({ createPost, closeModal, existingPosts }) => {
-  const [post, setPost] = useState({ title: "", body: "" });
+  const [post, setPost] = useState({ title: "", body: "" });  
   const [idCounter, setIdCounter] = useState(1);
 
   useEffect(() => {

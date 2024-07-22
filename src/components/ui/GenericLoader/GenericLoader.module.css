@@ -1,0 +1,38 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loader {
+  background-color: transparent;
+  border: 3px dashed teal;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: rotate 1s infinite linear;
+}
+
+.text {
+  font-style: 16px;
+  font-weight: bolt;
+  text-align: center;
+  color: teal;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg) scale(0.5);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}

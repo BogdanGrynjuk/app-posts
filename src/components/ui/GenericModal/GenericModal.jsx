@@ -4,7 +4,12 @@ import { createPortal } from 'react-dom';
 import classNames from 'classnames';
 import css from './GenericModal.module.css';
 
-const GenericModal = ({ children, closeModal, modalRoot, customStyles = {} }) => {
+const GenericModal = ({
+  children,
+  closeModal,
+  modalRoot,
+  customStyles = {}
+}) => {
   const handleKeyDown = useCallback((event) => {
     if (event.code === "Escape") {      
       closeModal();      

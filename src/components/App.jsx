@@ -11,22 +11,23 @@ import GenericInfoMessage from "./ui/GenericInfoMessage";
 import { getCountOfPages } from "utils/pages";
 import Pagination from "./posts/Pagination";
 
+const LIMIT_POSTS = 10;
+
 export const App = () => {
   const [posts, setPosts] = useState([]);
   const [filterPost, setFilterPost] = useState({ sort: '', query: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [totalCountPages, setTotalCountPages] = useState(0);
-  const [limitPosts, setLimitPosts] = useState(10);
   const [page, setPage] = useState(1);
 
   
   
   const fetchingPosts = useCallback(async () => {
-    const response = await PostService.getAllPosts(limitPosts, page);
+    const response = await PostService.getAllPosts(LIMIT_POSTS, page);
     const totalCountPosts = response.headers['x-total-count'];
-    setTotalCountPages(getCountOfPages(totalCountPosts, limitPosts))
+    setTotalCountPages(getCountOfPages(totalCountPosts, LIMIT_POSTS))
     setPosts(response.data);
-  }, [limitPosts, page]);
+  }, [page]);
   
   const [fetchPosts, isLoadingPosts, postError] = useFetching(fetchingPosts);
   const arrayOfPageNumbers = usePagination(totalCountPages);

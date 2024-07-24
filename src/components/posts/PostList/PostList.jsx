@@ -13,7 +13,7 @@ const PostList = ({ posts, deletePost }) => {
   return (
     <GenericList
       items={posts}
-      renderItem={(post, index) => <PostItem post={post} number={index + 1} deletePost={deletePost}/>}
+      renderItem={(post) => <PostItem post={post} deletePost={deletePost}/>}
       keyExtractor={(post) => `post-${post.id}`}
       listName="Список постів"
       customStyles={css}

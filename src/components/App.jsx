@@ -3,27 +3,37 @@ import PostList from "./posts/PostList";
 import PostFilter from "./posts/PostFilter";
 import ModalAddnewPost from "./posts/ModalAddNewPost";
 import ControlPanel from "./posts/ControlPanel";
-import { useFetching, useSortedAndSearchedPosts } from "../hooks";
+import { useFetching, usePagination, useSortedAndSearchedPosts } from "../hooks";
 import { PostService } from "API/PostService";
 import GenericLoader from "./ui/GenericLoader";
 import { LOADER } from "static/modalRoots";
 import GenericInfoMessage from "./ui/GenericInfoMessage";
+import { getCountOfPages } from "utils/pages";
+import Pagination from "./posts/Pagination";
 
 export const App = () => {
   const [posts, setPosts] = useState([]);
   const [filterPost, setFilterPost] = useState({ sort: '', query: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [totalCountPages, setTotalCountPages] = useState(0);
+  const [limitPosts, setLimitPosts] = useState(10);
+  const [page, setPage] = useState(1);
+
+  
   
   const fetchingPosts = useCallback(async () => {
-    const posts = await PostService.getAllPosts();
-    setPosts(posts);
-  }, []);
+    const response = await PostService.getAllPosts(limitPosts, page);
+    const totalCountPosts = response.headers['x-total-count'];
+    setTotalCountPages(getCountOfPages(totalCountPosts, limitPosts))
+    setPosts(response.data);
+  }, [limitPosts, page]);
   
   const [fetchPosts, isLoadingPosts, postError] = useFetching(fetchingPosts);
+  const arrayOfPageNumbers = usePagination(totalCountPages);
 
   useEffect(() => {
-    fetchPosts();
-  }, [fetchPosts]);
+    fetchPosts();    
+  }, [fetchPosts, page]);
 
   const sortedAndSearchedPosts = useSortedAndSearchedPosts(posts, filterPost.sort, filterPost.query)
 
@@ -47,6 +57,10 @@ export const App = () => {
 
   const clearFilterPost = () => {
     setFilterPost({ ...filterPost, sort: "", query: "" });
+  }
+
+  const changePage = (pageNumber) => {
+    setPage(pageNumber);
   }
   
   return (
@@ -81,10 +95,17 @@ export const App = () => {
         ?
         <GenericLoader modalRoot={LOADER} text={"Loading posts..."} />
         :
-        <PostList
+        <>
+          <PostList
           posts={sortedAndSearchedPosts}
           deletePost={deletePost}
-        />
+          />
+          <Pagination
+            arrayOfPageNumbers={arrayOfPageNumbers}
+            page={page}
+            changePage={changePage}
+          />
+        </>
       }
     </div>
   );

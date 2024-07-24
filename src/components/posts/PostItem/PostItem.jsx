@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import css from './PostItem.module.css';
 import GenericBtn from 'components/ui/GenericBtn';
 
-const PostItem = ({ post, number, deletePost }) => {
+const PostItem = ({ post, deletePost }) => {
  
   return (
     <div className={css.post}>
       <div className={css.post__content}>
-        <strong>{number} . {post.title}</strong>
+        <strong>{post.id} . {post.title}</strong>
         <p>{post.body}</p>
       </div>
       <div className={css.post__btns}>
@@ -27,7 +27,6 @@ PostItem.propTypes = {
     title: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
   }).isRequired,
-  number: PropTypes.number.isRequired,
 };
 
 export default PostItem;

@@ -8,11 +8,16 @@ const GenericBtn = ({
   disabled,
   active,
   customStyles = {},
+  customClass,
   ...props
 }) => {
   return (
     <button
-      className={classNames(css.btn, { [css.btn_disabled]: disabled }, customStyles.btn, )}
+      className={classNames(
+        css.btn,
+        { [css.btn_disabled]: disabled },
+        { [css.btn_active]: active },
+        customStyles.btn)}
       {...props}
     >
       {children}
@@ -28,6 +33,7 @@ GenericBtn.propTypes = {
   disabled: PropTypes.bool,
   active: PropTypes.bool,
   customStyles: PropTypes.object,
+  customClass: PropTypes.string,
 };
 
 export default GenericBtn;

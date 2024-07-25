@@ -1,0 +1,15 @@
+.navbar {
+  width: 800px;
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 20px;
+}
+
+.navbar__link {
+  color: black;
+}
+
+.navbar__link.active {
+  font-weight: bold;
+  color: teal;
+}

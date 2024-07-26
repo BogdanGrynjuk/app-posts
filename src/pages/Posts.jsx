@@ -10,17 +10,6 @@ import { LOADER } from "static/modalRoots";
 import GenericLoader from "components/ui/GenericLoader";
 import PostList from "components/posts/PostList";
 import Pagination from "components/posts/Pagination";
-// import PostList from "./posts/PostList";
-// import PostFilter from "./posts/PostFilter";
-// import ModalAddnewPost from "./posts/ModalAddNewPost";
-// import ControlPanel from "./posts/ControlPanel";
-// import { useFetching, usePagination, useSortedAndSearchedPosts } from "../hooks";
-// import { PostService } from "API/PostService";
-// import GenericLoader from "./ui/GenericLoader";
-// import { LOADER } from "static/modalRoots";
-// import GenericInfoMessage from "./ui/GenericInfoMessage";
-// import { getCountOfPages } from "utils/pages";
-// import Pagination from "./posts/Pagination";
 
 const LIMIT_POSTS = 10;
 
@@ -29,9 +18,7 @@ const Posts = () => {
   const [filterPost, setFilterPost] = useState({ sort: '', query: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [totalCountPages, setTotalCountPages] = useState(0);
-  const [page, setPage] = useState(1);
-
-  
+  const [page, setPage] = useState(1);  
   
   const fetchingPosts = useCallback(async () => {
     const response = await PostService.getAllPosts(LIMIT_POSTS, page);

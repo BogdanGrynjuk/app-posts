@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router-dom';
 const Error = () => {
   const navigate = useNavigate();
   const [timeLeft, setTimeLeft] = useState(5);
-  const goToPostsPage = useCallback(() => {
-    navigate('/posts');
+  const goToHomePage = useCallback(() => {
+    navigate('/');
   }, [navigate]);
 
   useEffect(() => {
     const timerId = setTimeout(() => {
-      goToPostsPage();
+      goToHomePage();
     }, 5000);
 
     const intervalId = setInterval(() => {
@@ -23,7 +23,7 @@ const Error = () => {
       clearTimeout(timerId);
       clearInterval(intervalId);
     };
-  }, [goToPostsPage, navigate]);
+  }, [goToHomePage, navigate]);
 
   return (
     <div style={{width: "800px", display: 'flex', flexDirection: "column", alignItems: "center", textAlign: "center"}}>
@@ -40,7 +40,7 @@ const Error = () => {
       <GenericInfoMessage message={`Повернення на головну сторінку через ${timeLeft} секунд`} />
       <br /><br /><br />
       <GenericBtn
-        onClick={goToPostsPage}
+        onClick={goToHomePage}
       >
         Перейти негайно
       </GenericBtn>

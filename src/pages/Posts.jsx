@@ -27,7 +27,7 @@ const Posts = () => {
     setPosts(response.data);
   }, [page]);
   
-  const [fetchPosts, isLoadingPosts, postError] = useFetching(fetchingPosts);
+  const [fetchPosts, isLoadingPosts, postsError] = useFetching(fetchingPosts);
   const arrayOfPageNumbers = usePagination(totalCountPages);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const Posts = () => {
   }
   
   return (
-    <div style={{ width: '800px', overflow: "hidden" }}>
+    <main style={{ width: '800px', overflow: "hidden" }}>
 
       {isModalOpen &&
         <ModalAddnewPost
@@ -83,10 +83,10 @@ const Posts = () => {
         openModal={toggleModal}
         clearFilter={clearFilterPost}
       />
-      {postError
+      {postsError
         &&
         <GenericInfoMessage
-          message={`Під час завантаження сталася помилка. ${postError}`}
+          message={`Під час завантаження сталася помилка. ${postsError}`}
         />
         
       }
@@ -106,7 +106,7 @@ const Posts = () => {
           />
         </>
       }
-    </div>
+    </main>
   );
 };
 

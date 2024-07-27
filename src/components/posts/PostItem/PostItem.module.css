@@ -3,6 +3,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  column-gap: 16px;
   border: 2px solid teal;
   border-radius: 16px;
+}
+
+.post__btns {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
 }

@@ -26,7 +26,7 @@ const Error = () => {
   }, [goToHomePage, navigate]);
 
   return (
-    <div style={{width: "800px", display: 'flex', flexDirection: "column", alignItems: "center", textAlign: "center"}}>
+    <main style={{width: "800px", display: 'flex', flexDirection: "column", alignItems: "center", textAlign: "center"}}>
       <GenericInfoMessage message='Помилка 404:'/>
       <GenericInfoMessage message='Сторінка за вашим запитом не знайдена'/>
       
@@ -44,7 +44,7 @@ const Error = () => {
       >
         Перейти негайно
       </GenericBtn>
-    </div>
+    </main>
   );
 }
 

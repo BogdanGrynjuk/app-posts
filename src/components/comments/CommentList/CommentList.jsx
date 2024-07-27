@@ -2,12 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GenericList from 'components/ui/GenericList';
 import CommentItem from '../CommentItem';
+import css from './CommentList.module.css'
 
-
-
-
-const CommentList = ({ comments }) => {
- 
+const CommentList = ({ comments }) => { 
   
   return (
     <GenericList
@@ -15,7 +12,7 @@ const CommentList = ({ comments }) => {
       renderItem={(comment) => <CommentItem comment={comment}/>}
       keyExtractor={(comment) => `comment-${comment.id}`}
       listName="Коментарі:"
-      // customStyles={css}
+      customStyles={css}
     />
   );
 };

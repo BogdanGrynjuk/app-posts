@@ -1,16 +1,22 @@
 import { PostService } from 'API/PostService';
 import CommentList from 'components/comments/CommentList';
+import GenericBtn from 'components/ui/GenericBtn';
 import GenericInfoMessage from 'components/ui/GenericInfoMessage';
 import GenericLoader from 'components/ui/GenericLoader';
 import { useFetching } from 'hooks';
 import React, { useCallback, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { LOADER } from 'static/modalRoots';
 
 export const PostDetails = () => {
   const { id } = useParams();
   const [post, setPost] = useState({});
-  const [comments, setComments] = useState([]); 
+  const [comments, setComments] = useState([]);
+  const navigate = useNavigate();
+
+  const goToPosts = () => {
+    navigate(`/posts`);
+  }
     
   const fetchingPost = useCallback(async () => {
     const responce = await PostService.getPostById(id);
@@ -32,7 +38,11 @@ export const PostDetails = () => {
 
   return (
     <main style={{ width: '800px', overflow: "hidden" }}>
-      <Link to={'/posts'}>Повернутися назад</Link>
+      <GenericBtn
+        onClick={goToPosts}
+      >
+        Назад
+      </GenericBtn>
       {postError
         &&
         <GenericInfoMessage
